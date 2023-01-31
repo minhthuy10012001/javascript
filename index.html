@@ -1,12 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 </head>
+
 <body>
-    <script src = "main.js"></script>
+    <script src="./main.js"></script>
+    <div class="todolist">
+        <div id="newitem">
+            <input type="text" placeholder="Task to be done..">
+            <button id="add" onclick="addItem()">Add</button>
+        </div>
+    </div>
+    <div class="items" id="items"></div>
+
+    <script>
+
+        const input = document.querySelector('#newitem input');
+        const list_item = document.querySelector('.items');
+        let items = [];
+
+        function eventListeners() {
+            document.addEventListener('DOMContentLoaded', () => {
+                items = JSON.parse(localStorage.getItem('items'));
+                creatHTML();
+            });
+            list_item.addEventListener('click', deleteItem);
+            // list_item.addEventListener('click', upItem);
+            // list_item.addEventListener('click', downItem);
+        }
+        eventListeners();
+
+        function deleteItem(e) {
+            if (e.target.tagName == 'I') {
+                const deleteId = parseInt(e.target.getAttribute('item-id'));
+                items = items.filter(item => item.id !== deleteId);
+                console.log(deleteId);
+                creatHTML();
+            }
+        }
+        // function upItem(){
+
+ 
+        // }
+        // function downItem(){
+
+        // }
+        
+        function addItem() {
+            const item = input.value;
+            if (item === '') {
+                alert('Điền vào mới được, ok chưa?');
+                return;
+            }
+            const itemObj = {
+                item,
+                id: Date.now()
+            }
+            items = [...items, itemObj];
+            creatHTML();
+            input.value = '';
+            
+        }
+        function creatHTML() {
+            clearHTML();
+            if (items.length > 0) {
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                    <div class = 'item'>              
+                        <span id="itemname">
+                            ${item.item}
+                        </span>
+                        <div class='icon'>
+                            <button class="ClickUP">
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                            </button>                
+                            <i class="far fa-trash-alt" item-id = "${item.id}"></i>
+                            <button class="ClickDOWN">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    `;
+                    list_item.appendChild(div);
+                });
+            }
+            storage();
+            
+        }
+        function clearHTML() {
+            list_item.innerHTML = '';
+        }
+        function storage() {
+            localStorage.setItem('items', JSON.stringify(items));
+        }
+
+    </script>
 </body>
+
 </html>

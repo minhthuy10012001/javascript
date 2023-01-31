@@ -1,0 +1,70 @@
+#add{
+    background-color: #2662e3;
+    color: white;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: 80px;
+    border: 1px solid #2662e3;
+}
+
+.todolist input{
+    height: 25px;
+    width: 400px;
+    margin-left: 86px;
+}
+.items{
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    margin-top: 10px;
+}
+
+.item{
+    width: 600px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #939697;
+    cursor: pointer;
+    background-color: #46a5e46e;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    display: flex;
+    color: #fff;
+}
+.itemname{
+    font-family: 'Poppins',sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+.item button{
+    background-color: #2662e3;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+    width: 40px;
+    border-radius: 5px;
+    padding: 10px;
+}
+i.far.fa-trash-alt {
+    background: #2662e3;
+    padding: 11px 14px 11px 14px;
+    border-radius: 5px;
+}
+.item:hover{
+    background-color: #4592ac;
+}
+.item:hover .icon{
+    opacity: 1;
+    visibility: visible;
+}
+.icon{
+    opacity: 0;
+    visibility: hidden;
+}
